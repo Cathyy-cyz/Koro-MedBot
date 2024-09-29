@@ -1,3 +1,6 @@
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,19 +18,19 @@
     </header>
     <main>
         <section id="about">
-            <h2>⸜(ᵔᗜᵔ)⸝About the Koro</h2>
+            <h1>⸜(ᵔᗜᵔ)⸝About the Koro</h1>
             <div class="Cat">
-             <p>/ᐢ____ᐢ\</p>                                                           <p>꒰ ˶• ༝ •˶꒱</p>   
+                <h2>/ᐢ____ᐢ\</h2>                                                           <h2>꒰ ˶• ༝ •˶꒱</h2>   
             </div>
-            <p>./づ~Our Koro is designed to assist users with various questions about user heatlh or just to check in even! Since it is a Medbot if should be knowledge in the medical fields. As well providing quick and accurate responses.</p>
+            <h2>./づ~Our Koro is designed to assist users with various questions about user heatlh or just to check in even! Since it is a Medbot if should be knowledge in the medical fields. As well providing quick and accurate responses.</h2>
         </section>
         <section id="features">
-            <h2>Features</h2>
+            <h1>Features</h1>
             <ul>
-                <li>24/7 Availability</li>
-                <li>Instant Responses</li>
-                <li>User-Friendly Interface</li>
-                <li>Multi-Platform Support!!</li>
+                <li><h2>24/7 Availability</h2></li>
+                <li><h2>Instant Responses</h2></li>
+                <li><h2>User-Friendly Interface</h2></li>
+                <li><h2>Multi-Platform Support!!</h2></li>
             </ul>
         </section>
         <section id="contact">
@@ -60,7 +63,7 @@
                 }
                 .chat-box .user {
                     text-align: right;
-                    color: #C0D6C0;
+                    color: darkolivegreen;
                 }
                 .chat-box .bot {
                     text-align: left;
@@ -78,7 +81,7 @@
                     outline: none;
                 }
                 .input-box button {
-                    padding: 10px 20px;
+                    padding: 10px 30px;
                     background-color: #C0D6C0;
                     color: darkolivegreen;
                     border: none;
@@ -99,7 +102,7 @@
             </div>
 
             <script>
-                const API_KEY = "SECRET"
+                'SERCRET'
 
                 // Initialize conversation with a system message for medical assistant role
                 let messages = [
