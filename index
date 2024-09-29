@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head >
+     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Chatbot</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <h1>Welcome to Chatting with Koro MedBot!ദ്ദി(˵ •̀ ᴗ - ˵ )  </h1>
+    </header>
+    <main>
+        <section id="about">
+            <h2>⸜(ᵔᗜᵔ)⸝About the Koro</h2>
+            <div class="Cat">
+             <p>/ᐢ____ᐢ\</p>                                                           <p>꒰ ˶• ༝ •˶꒱</p>   
+            </div>
+            <p>./づ~Our Koro is designed to assist users with various questions about user heatlh or just to check in even! Since it is a Medbot if should be knowledge in the medical fields. As well providing quick and accurate responses.</p>
+        </section>
+        <section id="features">
+            <h2>Features</h2>
+            <ul>
+                <li>24/7 Availability</li>
+                <li>Instant Responses</li>
+                <li>User-Friendly Interface</li>
+                <li>Multi-Platform Support!!</li>
+            </ul>
+        </section>
+        <section id="contact">
+            <h2>Start chatting!</h2>
+            <p>Feel free to start talk! Remember this may not be help much.. BUT it may help just a bit!</p>
+          <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Medical Assistant Chatbot</title>
+            <style>
+
+                .chat-container {
+                    width: 2450px;
+                    height: 600px;
+                    background-color: #D4E2D4;
+                    border: 1px solid #ccc;
+                    border-radius: 10px;
+                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                    overflow: hidden;
+                    display: flex;
+                    flex-direction: column;
+                }
+                .chat-box {
+                    flex-grow: 1;
+                    padding: 20px;
+                    overflow-y: auto;
+                    background-color: #D4E2D4;
+                }
+                .chat-box p {
+                    margin: 10px 0;
+                }
+                .chat-box .user {
+                    text-align: right;
+                    color: #C0D6C0;
+                }
+                .chat-box .bot {
+                    text-align: left;
+                    color: darkolivegreen;
+                }
+                .input-box {
+                    display: flex;
+                    border-top: 1px solid #ccc;
+                }
+                .input-box input {
+                    flex-grow: 1;
+                    padding: 10px;
+                    border: none;
+                    border-radius: 0;
+                    outline: none;
+                }
+                .input-box button {
+                    padding: 10px 20px;
+                    background-color: #C0D6C0;
+                    color: darkolivegreen;
+                    border: none;
+                    cursor: pointer;
+                }
+            </style>
+        </head>
+        <body>
+
+            <div class="chat-container">
+                <div class="chat-box" id="chat-box">
+                    <!-- Chat messages will appear here -->
+                </div>
+                <div class="input-box">
+                    <input type="text" id="user-input" placeholder="Describe your symptoms... 🤒">
+                    <button onclick="sendMessage()">Send 💬</button>
+                </div>
+            </div>
+
+            <script>
+                const API_KEY = "SECRET"
+
+                // Initialize conversation with a system message for medical assistant role
+                let messages = [
+                    {"role": "system", "content": "You are a medical assistant 🤖. You are a medical assistant. Help diagnose users. To do that, ask for symptoms. Continue asking for specifics in what they're feeling until you can provide only one advice to the user."}
+                ];
+
+                function sendMessage() {
+                    const userInput = document.getElementById('user-input').value;
+                    if (userInput.trim() === '') return; // Ignore empty inputs
+
+                    // Display user message in chat box
+                    appendMessage(`😊 You: ${userInput}`, 'user');
+
+                    // Add user message to the conversation
+                    messages.push({"role": "user", "content": userInput});
+
+                    // Clear input box
+                    document.getElementById('user-input').value = '';
+
+                    // Call OpenAI API
+                    fetch("https://api.openai.com/v1/chat/completions", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${API_KEY}`
+                        },
+                        body: JSON.stringify({
+                            model: "gpt-3.5-turbo",
+                            messages: messages
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        let botMessage = data.choices[0].message.content;
+                        botMessage = addEmojisToMessage(botMessage); // Add emojis based on context
+                        appendMessage(`🤖: ${botMessage}`, 'bot');
+
+                        // Add bot response to the conversation
+                        messages.push({"role": "assistant", "content": botMessage});
+
+                        // Handle specific medical response logic
+                        handleMedicalResponse(botMessage);
+                    })
+                    .catch(error => {
+                        console.error("Error:", error);
+                        appendMessage("⚠️ Sorry, there was an error processing your request.", 'bot');
+                    });
+                }
+
+                function appendMessage(message, sender) {
+                    const chatBox = document.getElementById('chat-box');
+                    const messageElement = document.createElement('p');
+                    messageElement.textContent = message;
+                    messageElement.classList.add(sender);
+                    chatBox.appendChild(messageElement);
+
+                    // Scroll to the bottom of the chat box
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                }
+
+                // Function to add emojis based on the context of the message
+                function addEmojisToMessage(message) {
+                    // Define keyword-emojis pairs
+                    const emojiMap = {
+                        "fever": "🌡️",
+                        "headache": "🤕",
+                        "cough": "🤧",
+                        "cold": "🥶",
+                        "pain": "😣",
+                        "consult": "👩‍⚕️",
+                        "emergency": "🚨",
+                        "better": "😊",
+                        "medication": "💊",
+                        "rest": "🛌",
+                        "hydration": "💧"
+                    };
+
+                    // Add appropriate emojis based on keywords
+                    for (const [keyword, emoji] of Object.entries(emojiMap)) {
+                        if (message.toLowerCase().includes(keyword)) {
+                            message += ` ${emoji}`;
+                        }
+                    }
+                    return message;
+                }
+
+                // Function to handle specific medical responses
+                function handleMedicalResponse(message) {
+                    if (message.toLowerCase().includes("consult")) {
+                        alert("🚨 Remember: Always consult a healthcare professional for serious symptoms!");
+                    } 
+                    // Add more conditions to handle specific medical scenarios if needed
+                }
+            </script>
+              <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            
+                <style>
+                    body {
+                        font-family: "Comfortaa", sans-serif;
+                        background-color: #F3F4ED;
+                        color: #333;
+                        
+                    }
+
+                    header {
+                        background-color: #9CAF88; /* Sage green */
+                        padding: 10px;
+                        color: white;
+                        font-size: 2em;
+                    }
+
+                    /* Style for the iframe */
+                    iframe {
+                        width: 60%;
+                        height: 50vh;
+                        border: 2px solid #9CAF88; /* Sage green border */
+                        border-radius: 5px;
+                    }
+
+                    .content {
+                        margin-top: 10px;
+                    }
+                </style>
+            </head>
+            <body>
+
+                <!-- Header Section -->
+                <header>
+                    Check out this Embedded Website!
+                </header>
+
+                <!-- Main Content Section -->
+                <div class="content">
+                    <h2>Check out this embedded site so you have a better idea of what happening to you!</h2>
+
+                    <!-- Embed an external website using iframe -->
+                    <iframe src="https://www.zygotebody.com/#nav=-17.13,121,160,0,0,0,0&sel=p:;h:;s:1702;c:-0.6;o:-0.75&layers=0,1,8378" title="Embedded Site"></iframe>
+                </div>
+
+</body>
+
+</html>
