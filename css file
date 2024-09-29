@@ -1,0 +1,57 @@
+
+body {
+  font-family: "Comfortaa", sans-serif;
+  background-color: #B2C2B5;
+  /* Sage Green */
+  color: #333;
+  text-align: center;
+  margin: 0;
+  padding: 20px;
+}
+
+
+.Cat {
+  line-height: 0;
+}
+
+header {
+  background-color: #A8B8A0;
+  /* Darker Sage Green */
+  padding: 10px 0;
+}
+
+h1 {
+  margin: 0;
+  color: white;
+}
+
+main {
+  margin: 20px 0;
+}
+
+section {
+  margin: 20px 0;
+  padding: 15px;
+  background-color: #D4E2D4;
+  /* Light Sage Green */
+  border-radius: 8px;
+  
+}
+
+button {
+  padding: 10px 15px;
+  background-color: #C0D6C0;
+  /* Sage Green */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #A8B8A0;
+  /* Darker on hover */
+}
+
+footer {
+  margin-top: 20px;
+}
